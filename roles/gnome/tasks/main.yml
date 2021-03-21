@@ -13,4 +13,3 @@
         state: absent
         purge: yes
   become: yes
-  
