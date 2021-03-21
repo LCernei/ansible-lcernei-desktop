@@ -1,0 +1,16 @@
+---
+# tasks file for gnome
+- name: Install Gnome DE
+  block:
+    - name: Apt install gnome
+      apt:
+        name: gnome
+        state: present
+
+    - name: Remove unnecesary packages
+      apt:
+        name: gnome-games
+        state: absent
+        purge: yes
+  become: yes
+  

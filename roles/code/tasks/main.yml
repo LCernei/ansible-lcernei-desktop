@@ -1,2 +1,13 @@
 ---
 # tasks file for code
+- name: Check if vscode is installed
+  command: 'which code'
+  register: code_installed
+  ignore_errors: yes
+  changed_when: no
+
+- name: Install vscode
+  apt:
+    deb: https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
+  when: code_installed.rc != 0
+  

@@ -1,0 +1,11 @@
+---
+- name: Debian Postinstall
+  gather_facts: no
+  hosts: all
+  vars_files:
+    - secret
+  roles:
+    - upgrade
+    - gnome
+    - devpackages
+    - jetbrains

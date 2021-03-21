@@ -1,0 +1,10 @@
+---
+# tasks file for upgrade
+- name: Update and Upgrade
+  apt:
+    update_cache: yes
+    cache_valid_time: 43200
+    upgrade: full
+    autoremove: yes
+    autoclean: yes
+  become: yes

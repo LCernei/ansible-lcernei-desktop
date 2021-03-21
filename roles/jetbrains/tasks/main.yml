@@ -1,0 +1,28 @@
+---
+# tasks file for jetbrains
+- name: Find latest JetbrainsToolbox release
+  uri:
+    url: https://data.services.jetbrains.com/products/releases?code=TBA&latest=true&type=release
+    return_content: yes
+    body_format: json
+    follow_redirects: all
+  register: jt_releases
+
+- name: Download the tar.gz installer
+  get_url:
+    url: "{{ jt_releases.json.TBA.0.downloads.linux.link }}"
+    dest: /tmp/jetbrains/archive
+
+- name: Extract JetBrainsToolbox
+  unarchive:
+    src: /tmp/jetbrains/archive
+    dest: /tmp/jetbrains
+    remote_src: yes
+    list_files: yes
+  register: jt_extracted
+
+- name: Install JetBrainsToolbox
+  command:
+    cmd: ./jetbrains-toolbox
+    chdir: "/tmp/jetbrains/{{ jt_extracted.files.0 }}"
+  when: not jt_extracted.failed
