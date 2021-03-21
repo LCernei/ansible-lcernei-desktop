@@ -9,6 +9,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2.3.4
+
     - name: Inject a dynamic Collection version
       uses: artis3n/ansible_galaxy_collection@v2.2.3
       with:
