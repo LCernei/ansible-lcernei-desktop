@@ -1,10 +1,14 @@
 ---
+# launch all roles
 - name: Debian Postinstall
   gather_facts: no
   hosts: all
   roles:
-    - upgrade
-    - gnome
-    - devtools
-    - code
-    - jetbrains
+    - ../roles/upgrade
+    - ../roles/devtools
+    - ../roles/gnome
+    - ../roles/code
+    - ../roles/chrome
+    - ../roles/jetbrains
+    - ../roles/nvidia
+    - ../roles/lenovo

@@ -1,15 +1,64 @@
 ---
 # tasks file for gnome
-- name: Install Gnome DE
-  block:
-    - name: Apt install gnome
-      apt:
-        name: gnome
-        state: present
-
-    - name: Remove unnecesary packages
-      apt:
-        name: gnome-games
-        state: absent
-        purge: yes
+- name: Apt install gnome
   become: yes
+  apt:
+    name: gnome
+    state: present
+
+- name: Set dark theme
+  dconf:
+    key: "/org/gnome/desktop/interface/gtk-theme"
+    value: "'Adwaita-dark'"
+- name: Allow overamplification
+  dconf:
+    key: "/org/gnome/desktop/sound/allow-volume-above-100-percent"
+    value: "false"
+- name: Touchpad click with finger
+  dconf:
+    key: "/org/gnome/desktop/peripherals/touchpad/click-method"
+    value: "'fingers'"
+- name: Do not paste with middle click
+  dconf:
+    key: "/org/gnome/desktop/interface/gtk-enable-primary-paste"
+    value: "false"
+- name: Show battery percentage
+  dconf:
+    key: "/org/gnome/desktop/interface/show-battery-percentage"
+    value: "true"
+- name: Show weekday
+  dconf:
+    key: "/org/gnome/desktop/interface/clock-show-weekday"
+    value: "true"
+- name: Show seconds
+  dconf:
+    key: "/org/gnome/desktop/interface/clock-show-seconds"
+    value: "true"
+- name: Show week number
+  dconf:
+    key: "/org/gnome/desktop/calendar/show-weekdate"
+    value: "true"
+
+- name: Terminal shortcut Super+t
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding"
+    value: "'<Super>t'"
+- name: Terminal shortcut Super+t
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name"
+    value: "'gnome-terminal'"
+- name: Terminal shortcut Super+t
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
+    value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
+- name: Terminal shortcut Super+t
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command"
+    value: "'gnome-terminal'"
+
+- name: Remove unnecesary packages
+  become: yes
+  apt:
+    name: gnome-games
+    state: absent
+    purge: yes
