@@ -1,0 +1,10 @@
+---
+# tasks file for misc
+- name: Install strange / non-free packages
+  become: yes
+  apt:
+    name:
+      - intel-microcode
+      - firmware-intel-sound
+      - firmware-realtek
+    state: present

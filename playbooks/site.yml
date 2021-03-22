@@ -4,11 +4,11 @@
   gather_facts: no
   hosts: all
   roles:
+    - ../roles/modprobe
     - ../roles/upgrade
+    - ../roles/misc
     - ../roles/devtools
     - ../roles/gnome
     - ../roles/code
-    - ../roles/chrome
     - ../roles/jetbrains
-    - ../roles/nvidia
-    - ../roles/lenovo
+    - ../roles/chrome

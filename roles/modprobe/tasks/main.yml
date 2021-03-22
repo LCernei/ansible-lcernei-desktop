@@ -1,0 +1,37 @@
+---
+# tasks file for modprobe
+- name: Check if nouveau is blacklisted
+  stat:
+    path: /etc/modprobe.d/blacklist-nvidia-nouveau.conf
+  register: nouveau_blacklisted
+  changed_when: no
+
+- name: Check if ideapad-laptop is blacklisted
+  stat:
+    path: /etc/modprobe.d/blacklist-ideapad-laptop.conf
+  register: ideapad_blacklisted
+  changed_when: no
+
+- name: Install ToolBoox
+  block:
+    - name: Blacklist noveau
+      copy:
+        mode: '0644'
+        dest: /etc/modprobe.d/blacklist-nvidia-nouveau.conf
+        content: |
+          blacklist nouveau
+          options nouveau modeset=0
+          install nouveau /bin/true
+
+    - name: Blacklist ideapad-laptop
+      copy:
+        mode: '0644'
+        dest: /etc/modprobe.d/blacklist-ideapad-laptop.conf
+        content: |
+          blacklist ideapad-laptop
+          install ideapad-laptop /bin/true
+
+    - name: Update initramfs
+      command: update-initramfs -u
+  become: yes
+  when: not nouveau_blacklisted.stat.exists or not ideapad_blacklisted.stat.exists
