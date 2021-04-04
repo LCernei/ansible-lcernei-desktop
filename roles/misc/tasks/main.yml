@@ -7,4 +7,5 @@
       - intel-microcode
       - firmware-intel-sound
       - firmware-realtek
+      - firmware-misc-nonfree
     state: present

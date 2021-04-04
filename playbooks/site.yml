@@ -12,3 +12,4 @@
     - ../roles/code
     - ../roles/jetbrains
     - ../roles/chrome
+    - ../roles/teams

@@ -8,10 +8,15 @@
       - git
       - curl
       - build-essential
+      - checkinstall
       - python3-venv
       - python3-pip
       - tree
       - neofetch
+      - etckeeper
+      - ffmpeg
+      - obs-studio
+      - bash-completion
     state: present
 
 - name: Install pip modules
